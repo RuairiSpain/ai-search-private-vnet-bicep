@@ -201,6 +201,13 @@ A vector field stores embeddings.
 
 The length of the embedding vector. It must match the embedding model output. THe embedding size depends on the tokenizer you choose. Tokenizer converts text into an array or floating point values. the dimension is the length or the array. Example: Tokenizer enbeds text into a vector with 1536 floating point value, dimension is 1536.
 
+```text
+contentVector : [0.0189, -0.0073, 0.1021, ... ]
+1536 dimensions × 4 bytes
+= 6144 bytes
+≈ 6 KB per row in AI Index
+```
+
 Note, OpenAI´s text-embedding tokenizer uses MRL (Matryoshka Representation Learning), you can reduce the size of the output tokens and it truncates some of the vector precision at the end, but the vector is roughly pointing to the same vector position. The embedding dimension in the index is a parameter you can play with.  Not all tokenizers can create MRL vectors.
 
 Examples:
@@ -217,7 +224,7 @@ The biggest savings come from:
 
 ```text
 3072 → 1024 dimensions (3× smaller)
-float32 → int8 quantization (4× smaller) ('ll cover quantization later)
+float32 → int8 quantization (4× smaller) (I'll cover quantization later)
 ```
 
 *Can get a x12 savings on index storage by dialing in your settings. But need to evaluate Precision and Recall of sample Search queries.*
